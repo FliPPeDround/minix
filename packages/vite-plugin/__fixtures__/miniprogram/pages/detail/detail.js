@@ -1,0 +1,4 @@
+/* oxlint-disable */
+Page({
+  data: {},
+});

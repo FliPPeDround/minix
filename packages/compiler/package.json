@@ -1,0 +1,48 @@
+{
+  "name": "@minix/compiler",
+  "version": "0.0.0",
+  "description": "WXML to Vue Vapor render function compiler for minix.",
+  "homepage": "https://github.com/flippedround/minix.git#readme",
+  "bugs": {
+    "url": "https://github.com/flippedround/minix/issues"
+  },
+  "license": "MIT",
+  "author": "FlippedRound <flippedround@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flippedround/minix.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test -u",
+    "test:watch": "vp test -u --watch",
+    "check": "vp check",
+    "prepublishOnly": "vp run build"
+  },
+  "dependencies": {
+    "@vue/compiler-vapor": "catalog:vue"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:types",
+    "bumpp": "catalog:cli",
+    "typescript": "catalog:types",
+    "ultrahtml": "catalog:parser",
+    "vite": "catalog:vite",
+    "vite-plus": "catalog:vite"
+  },
+  "inlinedDependencies": {
+    "ultrahtml": "1.7.0"
+  }
+}

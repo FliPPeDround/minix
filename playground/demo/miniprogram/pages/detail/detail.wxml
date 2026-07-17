@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="card">
+    <text class="title">{{title}}</text>
+    <text class="muted">文章 id: {{id}} · 来源: {{from}}</text>
+    <text class="content">{{content}}</text>
+  </view>
+  <button class="btn" bind:tap="goBack">返回上一页</button>
+  <button class="btn plain" bind:tap="goHome">reLaunch 回首页</button>
+</view>

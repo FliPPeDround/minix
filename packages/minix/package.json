@@ -1,0 +1,42 @@
+{
+  "name": "minix",
+  "version": "0.0.0",
+  "description": "Mini-program framework for browsers, powered by Vue Vapor Mode",
+  "homepage": "https://github.com/flippedround/minix.git#readme",
+  "bugs": {
+    "url": "https://github.com/flippedround/minix/issues"
+  },
+  "license": "MIT",
+  "author": "FlippedRound <flippedround@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flippedround/minix.git"
+  },
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test -u",
+    "test:watch": "vp test -u --watch",
+    "check": "vp check",
+    "prepublishOnly": "vp run build"
+  },
+  "dependencies": {
+    "@minix/runtime": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "catalog:types",
+    "vite": "catalog:vite",
+    "vite-plus": "catalog:vite"
+  }
+}

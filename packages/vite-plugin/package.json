@@ -1,0 +1,50 @@
+{
+  "name": "@minix/vite-plugin",
+  "version": "0.0.0",
+  "description": "Vite plugin that runs WeChat mini-program projects in the browser",
+  "homepage": "https://github.com/flippedround/minix.git#readme",
+  "bugs": {
+    "url": "https://github.com/flippedround/minix/issues"
+  },
+  "license": "MIT",
+  "author": "FlippedRound <flippedround@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flippedround/minix.git"
+  },
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test -u",
+    "test:watch": "vp test -u --watch",
+    "check": "vp check",
+    "prepublishOnly": "vp run build"
+  },
+  "dependencies": {
+    "@minix/compiler": "workspace:*",
+    "postcss": "^8.5.19",
+    "postcss-px-to-viewport-8-plugin": "^1.2.5"
+  },
+  "devDependencies": {
+    "@minix/runtime": "workspace:*",
+    "@types/node": "catalog:types",
+    "jsdom": "catalog:test",
+    "typescript": "catalog:types",
+    "vite": "catalog:vite",
+    "vite-plus": "catalog:vite"
+  },
+  "peerDependencies": {
+    "vite": "*"
+  }
+}
