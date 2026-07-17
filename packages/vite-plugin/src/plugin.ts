@@ -89,7 +89,11 @@ export function minix(options: MinixPluginOptions = {}): Plugin {
     },
 
     resolveId(id) {
-      if (id === VIRTUAL_ENTRY_ID) return RESOLVED_VIRTUAL_ENTRY_ID;
+      // dev 模式下 Vite dev server 会自动剥离 /@id/ 前缀；
+      // build 模式下 vite:build-html 直接把 HTML script src 原样传给 resolveId，
+      // 需要在这里手动剥离 /@id/ 前缀才能匹配虚拟入口
+      const normalized = id.startsWith("/@id/") ? id.slice(5) : id;
+      if (normalized === VIRTUAL_ENTRY_ID) return RESOLVED_VIRTUAL_ENTRY_ID;
     },
 
     load(id) {
@@ -101,16 +105,25 @@ export function minix(options: MinixPluginOptions = {}): Plugin {
       if (!filePath.startsWith(mpRoot)) return null;
 
       // .wxml → render 函数模块（产物 import 'minix'，由使用者的 minix 包解析）
+      // 幂等保护：已编译产物以 import 开头，不含 WXML 标签
       if (filePath.endsWith(".wxml")) {
+        if (code.startsWith("import") || code.startsWith("export")) return null;
         return { code: compile(code), map: null };
       }
 
       // .wxss → 导出 CSS 字符串的 JS 模块，运行时按页面维度注入/移除
+      // 幂等保护：已转换产物以 export default 开头
       if (filePath.endsWith(".wxss")) {
+        if (code.startsWith("export default")) return null;
         return { code: `export default ${JSON.stringify(transformWxss(code))};`, map: null };
       }
 
       if (filePath.endsWith(".js")) {
+        // 幂等保护：Vite 的 JS API build() 可能对同一模块调用多次 transform，
+        // 已注入过 import 的代码不再重复注入，避免标识符重复声明
+        if (code.includes("__minixCreateApp") || code.includes("__minixCreatePage")) {
+          return null;
+        }
         const route = relative(mpRoot, filePath).replace(/\\/g, "/").replace(/\.js$/, "");
         const dir = dirname(filePath);
         if (route === "app") {

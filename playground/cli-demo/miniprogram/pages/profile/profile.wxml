@@ -1,0 +1,10 @@
+<view class="container">
+  <view class="card user">
+    <text class="nick">{{user.nickName}}</text>
+    <text class="muted">等级 Lv.{{user.level}} · 启动于 {{launchedAt}}</text>
+  </view>
+  <view class="card">
+    <text class="muted">当前页面栈深度：{{stackDepth}}</text>
+  </view>
+  <button class="btn" bind:tap="refresh">刷新页面栈</button>
+</view>

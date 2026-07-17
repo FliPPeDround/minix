@@ -1,0 +1,16 @@
+{
+  "name": "cli-demo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "minix dev",
+    "build": "minix build"
+  },
+  "dependencies": {
+    "minix": "workspace:*"
+  },
+  "devDependencies": {
+    "@minix/cli": "workspace:*"
+  }
+}

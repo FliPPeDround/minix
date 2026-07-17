@@ -1,0 +1,16 @@
+.title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+}
+.content {
+  display: block;
+  margin-top: 24rpx;
+  font-size: 28rpx;
+  line-height: 1.8;
+}
+.btn {
+  margin-right: 24rpx;
+  margin-top: 24rpx;
+}

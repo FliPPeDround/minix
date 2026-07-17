@@ -8,6 +8,7 @@
     "ci": "vp check && vp run -r test && vp run -r build",
     "dev": "vp run website#dev",
     "dev:demo": "vp run demo#dev",
+    "dev:cli-demo": "vp run cli-demo#dev",
     "prepare": "vp config"
   },
   "devDependencies": {

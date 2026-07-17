@@ -1,0 +1,49 @@
+{
+  "name": "@minix/cli",
+  "version": "0.0.0",
+  "description": "Zero-config CLI to run WeChat mini-program projects in the browser",
+  "homepage": "https://github.com/flippedround/minix.git#readme",
+  "bugs": {
+    "url": "https://github.com/flippedround/minix/issues"
+  },
+  "license": "MIT",
+  "author": "FlippedRound <flippedround@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flippedround/minix.git"
+  },
+  "bin": {
+    "minix": "./dist/index.mjs"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "check": "vp check",
+    "prepublishOnly": "vp run build"
+  },
+  "dependencies": {
+    "@minix/vite-plugin": "workspace:*",
+    "cac": "^6.7.14",
+    "vite": "catalog:vite"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:types",
+    "typescript": "catalog:types",
+    "vite-plus": "catalog:vite"
+  },
+  "peerDependencies": {
+    "vite": "*"
+  }
+}
