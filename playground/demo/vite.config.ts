@@ -2,7 +2,7 @@ import { defineConfig } from "vite-plus";
 import minix from "@minix/vite-plugin";
 
 export default defineConfig({
-  plugins: [minix({ root: "miniprogram" })],
+  plugins: [minix({ root: "miniprogram", launcher: true })],
   define: {
     // esm-bundler 构建要求的编译期特性开关（vapor 模式不需要 options API）
     __VUE_OPTIONS_API__: "false",

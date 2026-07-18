@@ -13,7 +13,7 @@
     "url": "git+https://github.com/flippedround/minix.git"
   },
   "bin": {
-    "minix": "./dist/index.mjs"
+    "cli": "./dist/index.mjs"
   },
   "files": [
     "src",

@@ -11,6 +11,10 @@ cli
   .option("-p, --port <port>", "端口号", { default: 5173 })
   .option("--host <host>", "主机名")
   .option("-o, --open", "启动后自动打开浏览器", { default: false })
+  .option("--launcher", "启动原生 launcher 窗口（基于 webview，默认关闭）", {
+    default: false,
+  })
+  .option("--device <name>", "launcher 初始设备（如 'iPhone 15 Pro'）")
   .action((options: DevOptions) => dev(options));
 
 cli

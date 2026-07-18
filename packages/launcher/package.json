@@ -1,7 +1,7 @@
 {
-  "name": "@minix/vite-plugin",
+  "name": "@minix/launcher",
   "version": "0.0.0",
-  "description": "Vite plugin that runs WeChat mini-program projects in the browser",
+  "description": "Native webview launcher for minix — wraps the Vite dev server in a desktop window with a modern toolbar (device switching, DevTools toggle, always-on-top).",
   "homepage": "https://github.com/flippedround/minix.git#readme",
   "bugs": {
     "url": "https://github.com/flippedround/minix/issues"
@@ -13,7 +13,8 @@
     "url": "git+https://github.com/flippedround/minix.git"
   },
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
   "type": "module",
   "exports": {
@@ -26,28 +27,21 @@
   "scripts": {
     "build": "vp pack",
     "dev": "vp pack --watch",
-    "test": "vp test -u",
-    "test:watch": "vp test -u --watch",
     "check": "vp check",
     "prepublishOnly": "vp run build"
   },
-  "dependencies": {
-    "@minix/compiler": "workspace:*",
-    "postcss": "^8.5.19",
-    "postcss-px-to-viewport-8-plugin": "^1.2.5"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@minix/runtime": "workspace:*",
     "@types/node": "catalog:types",
-    "jsdom": "catalog:test",
     "typescript": "catalog:types",
-    "vite": "catalog:vite",
     "vite-plus": "catalog:vite"
   },
   "peerDependencies": {
-    "vite": "*"
+    "@webviewjs/webview": "^0.4.0"
   },
-  "optionalDependencies": {
-    "@minix/launcher": "workspace:*"
+  "peerDependenciesMeta": {
+    "@webviewjs/webview": {
+      "optional": true
+    }
   }
 }

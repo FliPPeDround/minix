@@ -1,6 +1,6 @@
 import { relative, resolve } from "node:path";
 import type { InlineConfig } from "vite";
-import minix from "@minix/vite-plugin";
+import minix, { type MinixPluginOptions } from "@minix/vite-plugin";
 
 /**
  * 构造 minix CLI 的默认 Vite 配置。
@@ -10,20 +10,22 @@ import minix from "@minix/vite-plugin";
  *
  * 不显式设置 Vite root —— 让 Vite 默认使用 process.cwd()，与 vite.config.ts 行为一致。
  *
- * @param cwd       用户执行 CLI 的工作目录
- * @param mpRoot    小程序源码目录（绝对路径，app.json 所在目录）
- * @param overrides 用户额外传入的配置覆盖（未来支持合并用户 vite.config.ts）
+ * @param cwd          用户执行 CLI 的工作目录
+ * @param mpRoot       小程序源码目录（绝对路径，app.json 所在目录）
+ * @param overrides    用户额外传入的配置覆盖（未来支持合并用户 vite.config.ts）
+ * @param minixOptions 透传给 @minix/vite-plugin 的选项（如 launcher）
  */
 export function createMinixViteConfig(
   cwd: string,
   mpRoot: string,
   overrides: InlineConfig = {},
+  minixOptions: MinixPluginOptions = {},
 ): InlineConfig {
   // vite-plugin 的 root 选项是相对 vite root 的路径
   const pluginRoot = relative(cwd, mpRoot) || ".";
 
   const base: InlineConfig = {
-    plugins: [minix({ root: pluginRoot })],
+    plugins: [minix({ ...minixOptions, root: pluginRoot })],
     define: {
       // esm-bundler 构建要求的编译期特性开关（vapor 模式不需要 options API）
       __VUE_OPTIONS_API__: "false",
