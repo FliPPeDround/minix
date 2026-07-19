@@ -17,12 +17,12 @@ catalogs:
   parser:
     ultrahtml: ^1.6.0
   vue:
-    "@vue/compiler-vapor": 3.6.0-beta.17
-    "@vue/reactivity": 3.6.0-beta.17
-    "@vue/runtime-dom": 3.6.0-beta.17
-    "@vue/runtime-vapor": 3.6.0-beta.17
-    "@vue/runtime-core": 3.6.0-beta.17
-    "@vue/shared": 3.6.0-beta.17
+    "@vue/compiler-vapor": 3.6.0-rc.1
+    "@vue/reactivity": 3.6.0-rc.1
+    "@vue/runtime-dom": 3.6.0-rc.1
+    "@vue/runtime-vapor": 3.6.0-rc.1
+    "@vue/runtime-core": 3.6.0-rc.1
+    "@vue/shared": 3.6.0-rc.1
 
   test:
     jsdom: "^25.0.0"
@@ -30,6 +30,9 @@ catalogs:
   vite:
     vite: npm:@voidzero-dev/vite-plus-core@0.2.4
     vite-plus: 0.2.4
+
+  webview:
+    "@webviewjs/webview": 0.3.2
 
 overrides:
   vite: "catalog:vite"

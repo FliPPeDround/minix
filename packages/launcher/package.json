@@ -30,14 +30,13 @@
     "check": "vp check",
     "prepublishOnly": "vp run build"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/node": "catalog:types",
     "typescript": "catalog:types",
     "vite-plus": "catalog:vite"
   },
   "peerDependencies": {
-    "@webviewjs/webview": "^0.4.0"
+    "@webviewjs/webview": "catalog:webview"
   },
   "peerDependenciesMeta": {
     "@webviewjs/webview": {
