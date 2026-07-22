@@ -7,6 +7,12 @@
     </view>
   </view>
 
+  <view>
+    <text>适配展示</text>
+    <button loading="true">默认按钮</button>
+    <button size="mini">小</button>
+  </view>
+
   <view class="section">文章列啊阿萨萨啊啊啊啊啊啊表 · {{articles.length}} 篇</view>
 
   <block wx:for="{{articles}}" wx:key="id">

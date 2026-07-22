@@ -20,12 +20,6 @@ export function removeStyle(id: string): void {
   }
 }
 
-/** 清空所有注入的样式（测试用） */
-export function __clearStyles(): void {
-  for (const el of styleMap.values()) el.remove();
-  styleMap.clear();
-}
-
 // ---------------------------------------------------------------------------
 // bundle 式样式累积：多个模块各自 pushStyle 片段，最后 flushStyles 一次注入，
 // 避免每个组件各产生一个 <style> 标签。

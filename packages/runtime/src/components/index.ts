@@ -23,6 +23,7 @@ import {
 import View from "./view/view.ts";
 import Text from "./text/text.ts";
 import { flushStyles } from "../style.ts";
+import Button from "./button/button.ts";
 /**
  * 内置组件注册表。
  *
@@ -46,7 +47,7 @@ export const MINIX_COMPONENTS: Record<string, VaporComponent> = {
   "minix-progress": MinixProgress,
   "minix-input": MinixInput,
   "minix-textarea": MinixTextarea,
-  "minix-button": MinixButton,
+  "minix-button": Button(),
   "minix-label": MinixLabel,
   "minix-form": MinixForm,
   "minix-checkbox": MinixCheckbox,

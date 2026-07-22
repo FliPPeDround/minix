@@ -2,7 +2,7 @@ import { match } from "path-to-regexp";
 import { getAppConfig, __resetApp } from "./app.ts";
 import { createPageInstance } from "./page.ts";
 import type { CreatedPage, RenderFn } from "./page.ts";
-import { applyStyle, removeStyle, __clearStyles } from "./style.ts";
+import { applyStyle, removeStyle } from "./style.ts";
 
 /** 页面注册信息：由 vite 插件注入的 createPage 工厂写入 */
 export interface PageRegistration {
@@ -95,18 +95,15 @@ function isTabPage(path: string): boolean {
 // ---------------------------------------------------------------------------
 // 应用外壳（导航栏 / 页面容器 / tabBar）与基础样式
 
-const BASE_CSS = `html, body { margin: 0; padding: 0; height: 100%; }
+const BASE_CSS = `
+* { margin: 0; }
+html, body { margin: 0; padding: 0; height: 100%; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", sans-serif;
   font-size: 14px;
   color: #1a1a1a;
   background: #fff;
 }
-page, view, scroll-view, swiper, swiper-item, block, cover-view, movable-area, movable-view { display: block; }
-text, rich-text, progress, icon, label, navigator { display: inline; }
-button, input, textarea, image, video, canvas, picker, slider, switch, radio, checkbox { display: inline-block; }
-button { font: inherit; }
-image { max-width: 100%; }
 .minix-shell { display: flex; flex-direction: column; height: 100vh; }
 .minix-navbar {
   flex: none;
@@ -422,6 +419,5 @@ export function __resetMinixRuntime(): void {
   activeTab = "";
   shell?.root.remove();
   shell = null;
-  __clearStyles();
   __resetApp();
 }
