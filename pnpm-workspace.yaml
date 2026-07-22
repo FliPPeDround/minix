@@ -23,13 +23,15 @@ catalogs:
     "@vue/runtime-vapor": 3.6.0-rc.1
     "@vue/runtime-core": 3.6.0-rc.1
     "@vue/shared": 3.6.0-rc.1
+    "@vitejs/plugin-vue": ^6.0.8
+    "vue": 3.6.0-rc.1
 
   test:
     jsdom: "^25.0.0"
 
   vite:
-    vite: npm:@voidzero-dev/vite-plus-core@0.2.4
-    vite-plus: 0.2.4
+    vite: npm:@voidzero-dev/vite-plus-core@0.2.5
+    vite-plus: 0.2.5
 
   webview:
     "@webviewjs/webview": 0.3.2

@@ -185,6 +185,97 @@ pnpm run -r build   # 构建所有包
 pnpm run ready      # check + test + build，提交前自检
 ```
 
+## Roadmap
+
+> 勾选状态对应当前主分支的实现进度，未勾选项表示计划中或部分实现。
+
+### 编译器（@minix/compiler）
+
+- [x] WXML → Vue 模板语法转换（`wx:if` / `wx:for` / `{{ }}` / 事件绑定）
+- [x] 内置组件统一 `minix-` 前缀，避免与浏览器默认样式冲突
+- [x] `<block>` 逻辑容器映射为 `<template>`
+- [x] 事件绑定 `bind:` / `catch:` / `capture-bind:` / `capture-catch:` / `mut-bind:`，`tap` → `click`
+- [x] `wx:key` → `:key` 自动补 `item.` 前缀
+- [ ] `<template>` 模板定义与 `<import>` / `<include>` 引用机制
+- [ ] `wxs` 模块解析与调用
+- [ ] `data` 数据绑定在 `wx:for` 与 `wx:if` 嵌套场景下的边界 case
+- [ ] sourcemap 回映射到原始 WXML
+
+### 样式（WXSS）
+
+- [x] WXSS 选择器中小程序标签名同步转 `minix-*`（基于 postcss）
+- [x] `rpx` → `vw` 自动转换
+- [x] app.wxss 全局注入 + 页面 wxss 按页面维度注入/移除
+- [ ] `@import` 语句解析与合并
+- [ ] 全局样式与页面样式的优先级规则对齐微信实现
+- [ ] 内联 `style` 与 `class` 的响应式合并策略
+
+### 运行时（@minix/runtime）
+
+- [x] `App()` / `Page()` / `setData` / `getApp` / `getCurrentPages`
+- [x] 路由 API：`navigateTo` / `navigateBack` / `redirectTo` / `reLaunch` / `switchTab`，含页面栈与 tabBar 缓存
+- [x] 应用外壳：导航栏 + 页面容器 + tabBar
+- [x] 页面生命周期：`onLoad` / `onShow` / `onReady` / `onHide` / `onUnload`
+- [x] App 生命周期：`onLaunch` / `onShow`
+- [x] 内置组件：`view` / `text` / `image` / `icon` / `navigator` / `button` / `input` / `textarea` / `scroll-view` / `swiper` / `picker` / `form` / `checkbox` / `radio` / `slider` / `switch` / `label` / `progress` / `rich-text`
+- [ ] `Component()` 自定义组件构造器与 `behaviors` / `relations`
+- [ ] `observers` 数据监听器与 `lifetimes` / `pageLifetimes`
+- [ ] `setData` 细粒度更新（路径表达式 `a.b.c`、diff 优化）
+- [ ] `wx.*` 常用 API：`request` / `showToast` / `showModal` / `storage` / `navigateToMiniProgram` 等
+- [ ] 组件 `slot` 命名插槽与作用域插槽
+- [ ] 现有组件属性补齐（如 `picker` 多列、`swiper` 完整属性、`image` 完整 `mode`）
+- [ ] `movable-view` / `cover-view` / `map` / `canvas` / `video` / `audio` / `web-view` 等扩展组件
+
+### Vite 插件（@minix/vite-plugin）
+
+- [x] 虚拟入口 `virtual:minix/entry` 装配 app + pages
+- [x] `.wxml` / `.wxss` / `.js` 文件转换与 import 注入
+- [x] 自动生成 `index.html`（dev / build 两种模式）
+- [x] 全页 HMR（wxml / wxss / json 变更触发刷新）
+- [ ] 局部 HMR：wxml render 函数热替换，避免整页刷新
+- [ ] app.json 变更后增量更新路由表，不重载整页
+- [ ] 多端构建产物（H5 / 桌面）
+
+### CLI（@minix/cli）
+
+- [x] `minix dev` 启动开发服务器
+- [x] `minix build` 构建静态站点
+- [x] `--launcher` / `--device` 选项透传
+- [ ] `minix create` 脚手架创建新项目
+- [ ] `minix check` 项目体检（依赖 / 配置 / 兼容性）
+- [ ] 自定义设备配置文件（`minix.config.ts` 中扩展设备预设）
+
+### Launcher（@minix/launcher）
+
+- [x] 基于 `@webviewjs/webview` 的原生窗口
+- [x] 紧凑 toolbar：设备切换 / DevTools / 置顶 / reload
+- [x] 设备预设（iPhone 15 Pro / SE / Max、Pixel 7、Galaxy S23、iPad Pro 11 等）
+- [x] 近似移动端模拟（UA override / viewport meta / touch 事件转换 / `matchMedia` polyfill）
+- [ ] 设备旋转（横竖屏切换）
+- [ ] 网络面板（请求拦截 / mock）
+- [ ] Storage 面板（查看 / 编辑 `wx.storage`）
+- [ ] 性能面板（渲染耗时 / 内存采样）
+- [ ] 真机预览（扫码 / 远程调试协议）
+
+### 工具链与工程化
+
+- [x] 统一 Vite+ 工具链（Vite / Rolldown / Vitest / Oxlint / Oxfmt / tsdown）
+- [x] pnpm workspace 多包管理
+- [x] compiler / vite-plugin 单元测试
+- [ ] runtime 在 jsdom 下的单测稳定化（解决 `document is not defined`）
+- [ ] 端到端测试覆盖 playground demo
+- [ ] Vue Devtools 集成
+- [ ] 完整的 TypeScript 类型导出与 `.d.ts` 校验
+
+### 文档与生态
+
+- [x] 仓库 README 与架构图
+- [x] playground/demo 示例（首页 / 详情页 / 个人中心 + tabBar）
+- [x] playground/cli-demo（CLI 入口示例）
+- [ ] 文档站点（组件 API / 路由 API / 迁移指南）
+- [ ] 从微信小程序迁移到 minix 的逐步指南
+- [ ] 更多 playground 示例（表单 / 列表 / 网络请求 / 自定义组件）
+
 ## 项目状态
 
 实验性项目，正在积极开发中。API 可能会变。欢迎提 issue 讨论。

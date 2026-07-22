@@ -135,16 +135,18 @@ export async function launchLauncher(options: LauncherOptions): Promise<void> {
   });
 
   // ── toolbar webview ─────────────────────────────────────────
+  // toolbarHtml 是构建时内联好的单文件 HTML（Vue 应用），设备列表等
+  // 动态信息由 Vue 应用在 mount 后通过 window.launcher API 拉取
   const toolbar = win.createWebview({
-    html: toolbarHtml(DEVICES, initialDevice.name),
+    html: toolbarHtml,
   });
   refs.toolbar = toolbar;
   // 关键：创建后立即设置 bounds，否则 toolbar 默认占满整个窗口盖住 content
   toolbar.setBounds(toolbarBounds(initialSize.width));
 
-  // 暴露控制接口给 toolbar 页面
+  // 暴露控制接口给 toolbar 页面（Vue 应用通过 window.launcher 调用）
   toolbar.expose("launcher", {
-    devices: () => DEVICES.map((d) => d.name),
+    devices: () => DEVICES.map((d) => ({ name: d.name, width: d.width, height: d.height })),
     currentDevice: () => state.device.name,
     setDevice: (name: string) => {
       const d = findDevice(name);

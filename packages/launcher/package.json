@@ -25,15 +25,19 @@
     "access": "public"
   },
   "scripts": {
-    "build": "vp pack",
-    "dev": "vp pack --watch",
+    "build:toolbar": "vp build toolbar",
+    "dev:toolbar": "vp build toolbar --watch",
+    "build": "vp run build:toolbar && vp pack",
+    "dev": "vp run dev:toolbar && vp pack --watch",
     "check": "vp check",
     "prepublishOnly": "vp run build"
   },
   "devDependencies": {
     "@types/node": "catalog:types",
+    "@vitejs/plugin-vue": "catalog:vue",
     "typescript": "catalog:types",
-    "vite-plus": "catalog:vite"
+    "vite-plus": "catalog:vite",
+    "vue": "catalog:vue"
   },
   "peerDependencies": {
     "@webviewjs/webview": "catalog:webview"
