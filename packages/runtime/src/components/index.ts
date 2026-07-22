@@ -20,7 +20,9 @@ import {
   MinixSlider,
   MinixSwitch,
 } from "./form.ts";
-
+import View from "./view/view.ts";
+import Text from "./text/text.ts";
+import { flushStyles } from "../style.ts";
 /**
  * 内置组件注册表。
  *
@@ -30,8 +32,8 @@ import {
  * `<minix-view>` 等标签而无需逐个 import。
  */
 export const MINIX_COMPONENTS: Record<string, VaporComponent> = {
-  "minix-view": MinixView,
-  "minix-text": MinixText,
+  "minix-view": View(),
+  "minix-text": Text(),
   "minix-icon": MinixIcon,
   "minix-image": MinixImage,
   "minix-navigator": MinixNavigator,
@@ -57,6 +59,7 @@ export const MINIX_COMPONENTS: Record<string, VaporComponent> = {
 export function registerMinixComponents(app: {
   component(name: string, comp: any): unknown;
 }): void {
+  flushStyles("minix:components");
   for (const [name, comp] of Object.entries(MINIX_COMPONENTS)) {
     app.component(name, comp);
   }
