@@ -1,7 +1,7 @@
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
-  resolve: {
+  pack: {
     alias: {
       "@vue/runtime-dom": "@vue/runtime-dom/dist/runtime-dom.esm-bundler.js",
       "@vue/runtime-core": "@vue/runtime-core/dist/runtime-core.esm-bundler.js",
@@ -9,8 +9,6 @@ export default defineConfig({
       "@vue/reactivity": "@vue/reactivity/dist/reactivity.esm-bundler.js",
       "@vue/shared": "@vue/shared/dist/shared.esm-bundler.js",
     },
-  },
-  pack: {
     dts: {
       tsgo: true,
     },
