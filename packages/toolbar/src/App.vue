@@ -16,7 +16,7 @@ interface LauncherApi {
 
 declare global {
   interface Window {
-    launcher?: LauncherApi;
+    launcher: LauncherApi;
     __minixUpdateState?: (patch: Record<string, unknown>) => void;
   }
 }

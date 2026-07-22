@@ -4,6 +4,7 @@ packages:
   - playground/*
 
 catalog:
+  vite-plugin-singlefile: ^2.3.3
 
 catalogMode: prefer
 

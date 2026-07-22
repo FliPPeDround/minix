@@ -6,9 +6,14 @@
   "scripts": {
     "ready": "vp check && vp run -r test && vp run -r build",
     "ci": "vp check && vp run -r test && vp run -r build",
-    "dev": "vp run website#dev",
-    "dev:demo": "vp run demo#dev",
-    "dev:cli-demo": "vp run cli-demo#dev",
+    "dev": "vp run --filter \"@minix/*\" dev",
+    "dev:cli": "vp run @minix/cli#dev",
+    "dev:compiler": "vp run @minix/compiler#dev",
+    "dev:launcher": "vp run @minix/launcher#dev",
+    "dev:runtime": "vp run @minix/runtime#dev",
+    "dev:toolbar": "vp run @minix/toolbar#dev",
+    "dev:minix": "vp run @minix/minix#dev",
+    "dev:plugin": "vp run @minix/vite-plus#dev",
     "prepare": "vp config"
   },
   "devDependencies": {

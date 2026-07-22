@@ -1,7 +1,6 @@
 import { Application, type BrowserWindow, type Webview } from "@webviewjs/webview";
 import { DEVICES, DEFAULT_DEVICE_NAME, findDevice } from "./devices.ts";
-import { toolbarHtml } from "./toolbar.ts";
-import { buildPreloadScript } from "./preload.ts";
+import toolbarHtml from "@minix/toolbar?raw";
 import type { Device, LauncherOptions } from "./types.ts";
 
 /** Toolbar 高度（逻辑像素），iOS Simulator 风格的紧凑条 */
@@ -16,9 +15,9 @@ const TOOLBAR_HEIGHT = 36;
  * 调用方（通常是 vite-plugin）会在 dev server listen 后调用此函数。
  *
  * @example
- *   await launchLauncher({ url: "http://localhost:5173/", device: "iPhone 15 Pro" });
+ *   await launch({ url: "http://localhost:5173/", device: "iPhone 15 Pro" });
  */
-export async function launchLauncher(options: LauncherOptions): Promise<void> {
+export async function launch(options: LauncherOptions): Promise<void> {
   const url = options.url;
   if (!url) throw new Error("[minix/launcher] url is required");
 
@@ -198,10 +197,7 @@ export async function launchLauncher(options: LauncherOptions): Promise<void> {
 
   // ── content webview ─────────────────────────────────────────
   // 用 preload 注入移动端模拟脚本（UA / viewport / touch）
-  const content = win.createWebview({
-    url,
-    preload: buildPreloadScript(initialDevice),
-  });
+  const content = win.createWebview({ url });
   refs.content = content;
   // 同样立即设置 bounds
   content.setBounds(contentBounds(initialSize.width));
@@ -238,5 +234,3 @@ export async function launchLauncher(options: LauncherOptions): Promise<void> {
 
 export { DEVICES, DEFAULT_DEVICE_NAME, findDevice };
 export type { Device, LauncherOptions } from "./types.ts";
-export { toolbarHtml } from "./toolbar.ts";
-export { buildPreloadScript } from "./preload.ts";

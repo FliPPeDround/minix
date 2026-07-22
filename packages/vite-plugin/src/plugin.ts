@@ -92,11 +92,11 @@ export function minix(options: MinixPluginOptions = {}): Plugin {
         const launcherOpts = typeof options.launcher === "object" ? options.launcher : {};
         const startLauncher = async () => {
           try {
-            const { launchLauncher } = await import("@minix/launcher");
+            const { launch } = await import("@minix/launcher");
             const url =
               server.resolvedUrls?.local?.[0] ??
               `http://localhost:${server.config.server.port ?? 5173}/`;
-            await launchLauncher({ url, ...launcherOpts });
+            await launch({ url, ...launcherOpts });
           } catch (err) {
             server.config.logger.error(`[minix] launcher 启动失败：${(err as Error).message}`);
             server.config.logger.info("[minix] 请确认已安装 @minix/launcher 与 @webviewjs/webview");
