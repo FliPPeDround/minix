@@ -88,6 +88,18 @@ export {
   MinixRadio,
   MinixSlider,
   MinixSwitch,
+  MinixCheckboxGroup,
+  MinixRadioGroup,
+  MinixPickerViewColumn,
+  MinixMovableArea,
+  MinixMovableView,
+  MinixCanvas,
+  MinixVideo,
+  MinixAudio,
+  MinixMap,
+  MinixWebView,
+  MinixEditor,
+  getCanvasById,
 } from "./components/index.ts";
 
 // 兜底导出 vapor 全部运行时 API：compiler 产物 import 什么完全由

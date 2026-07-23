@@ -1,0 +1,6 @@
+minix-canvas {
+  display: block;
+  /* 默认占位尺寸，与小程序默认 300x150 对齐；用户可覆盖 */
+  width: 300px;
+  height: 150px;
+}

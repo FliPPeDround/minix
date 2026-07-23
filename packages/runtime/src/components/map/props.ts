@@ -1,0 +1,16 @@
+export const mapProps = {
+  longitude: { type: [Number, String], default: 116.46 },
+  latitude: { type: [Number, String], default: 39.92 },
+  scale: { type: [Number, String], default: 16 },
+  markers: { type: Array, default: () => [] },
+  polyline: { type: Array, default: () => [] },
+  circles: { type: Array, default: () => [] },
+  controls: { type: Array, default: () => [] },
+  polygons: { type: Array, default: () => [] },
+  showLocation: { type: Boolean, default: false },
+  enableZoom: { type: Boolean, default: true },
+  enableScroll: { type: Boolean, default: true },
+  enableRotate: { type: Boolean, default: false },
+  enableOverlooking: { type: Boolean, default: false },
+  enable3D: { type: Boolean, default: false },
+};

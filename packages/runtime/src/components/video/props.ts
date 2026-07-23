@@ -1,0 +1,23 @@
+export const videoProps = {
+  src: { type: String, default: "" },
+  duration: { type: [Number, String], default: 0 },
+  controls: { type: Boolean, default: true },
+  danmuList: { type: Array, default: () => [] },
+  danmuBtn: { type: Boolean, default: false },
+  enableDanmu: { type: Boolean, default: false },
+  autoplay: { type: Boolean, default: false },
+  loop: { type: Boolean, default: false },
+  muted: { type: Boolean, default: false },
+  initialTime: { type: [Number, String], default: 0 },
+  objectFit: {
+    type: String as () => "contain" | "fill" | "cover",
+    default: "contain",
+  },
+  poster: { type: String, default: "" },
+  showMuteBtn: { type: Boolean, default: false },
+  showFullscreenBtn: { type: Boolean, default: true },
+  showPlayBtn: { type: Boolean, default: true },
+  showCenterPlayBtn: { type: Boolean, default: true },
+  enableProgressGesture: { type: Boolean, default: true },
+  objectFitStr: { type: String, default: "" },
+};

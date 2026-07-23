@@ -1,0 +1,7 @@
+minix-movable-area {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  /* 默认 10px 高度避免 0 高度导致子节点不可见；用户可通过 wxss 覆盖 */
+  height: 200px;
+}

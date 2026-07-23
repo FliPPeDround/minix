@@ -1,4 +1,4 @@
-import { navigateBack, reLaunch } from "minix";
+// import { navigateBack, reLaunch } from "minix";
 
 const ARTICLES = {
   1: "Vue Vapor 抛弃了虚拟 DOM，直接操作真实节点，包体积和运行时开销都更小——这正是小程序容器想要的。",

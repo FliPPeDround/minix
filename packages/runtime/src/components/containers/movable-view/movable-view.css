@@ -1,0 +1,10 @@
+minix-movable-view {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: center center;
+  touch-action: none;
+  user-select: none;
+  will-change: transform;
+}

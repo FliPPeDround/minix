@@ -1,10 +1,4 @@
-import {
-  defineVaporComponent,
-  renderEffect,
-  setProp,
-  on,
-  type VaporComponent,
-} from "@vue/runtime-vapor";
+import { defineVaporComponent, renderEffect, on, type VaporComponent } from "@vue/runtime-vapor";
 import { compileTemplate, defineSlotElementComponent, insertDefaultSlot } from "./_shared.ts";
 import { navigateTo, navigateBack, redirectTo, reLaunch, switchTab } from "../router.ts";
 
@@ -72,58 +66,13 @@ export const MinixIcon: VaporComponent = defineVaporComponent({
 // ---------------------------------------------------------------------------
 // image：minix-image 外壳包 <img>，mode 缩放语义作用于内部 img
 
-const IMAGE_MODE_FIT: Record<string, string> = {
-  scaleToFill: "fill",
-  aspectFit: "contain",
-  aspectFill: "cover",
-  top: "none",
-  bottom: "none",
-  center: "none",
-  left: "none",
-  right: "none",
-  "top left": "none",
-  "top right": "none",
-  "bottom left": "none",
-  "bottom right": "none",
-};
-
-const IMAGE_MODE_POSITION: Record<string, string> = {
-  top: "center top",
-  bottom: "center bottom",
-  center: "center center",
-  left: "left center",
-  right: "right center",
-  "top left": "left top",
-  "top right": "right top",
-  "bottom left": "left bottom",
-  "bottom right": "right bottom",
-};
-
-const t_img = compileTemplate(
-  `<minix-image style="display:inline-block"><img style="display:block;width:100%;height:100%" /></minix-image>`,
-);
+const t_img = compileTemplate(`<img role="img" />`);
 
 export const MinixImage: VaporComponent = defineVaporComponent({
   name: "minix-image",
-  props: {
-    src: { type: String, default: "" },
-    mode: { type: String, default: "scaleToFill" },
-    lazyLoad: { type: Boolean, default: false },
-  },
-  setup(props) {
-    const n0 = t_img();
-    const img = n0.firstChild as HTMLImageElement;
-    renderEffect(() => {
-      setProp(img, "src", props.src);
-      setProp(img, "loading", props.lazyLoad ? "lazy" : "eager");
-      img.style.objectFit = IMAGE_MODE_FIT[props.mode] ?? "fill";
-      img.style.objectPosition = IMAGE_MODE_POSITION[props.mode] ?? "50% 50%";
-      if (props.mode === "widthFix") {
-        img.style.height = "auto";
-        img.style.width = "100%";
-      }
-    });
-    return n0;
+  setup() {
+    const img = t_img() as HTMLImageElement;
+    return img;
   },
 });
 

@@ -1,0 +1,12 @@
+minix-picker-view-column {
+  display: block;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: y mandatory;
+  text-align: center;
+}
+
+minix-picker-view-column > * {
+  scroll-snap-align: center;
+}

@@ -9,8 +9,24 @@
 
   <view>
     <text>适配展示</text>
-    <button loading="true">默认按钮</button>
-    <button size="mini">小</button>
+    <button loading="{{true}}" ss="ss">默认按钮</button>
+    <button loading="{{true}}" size="mini">小</button>
+
+    <!-- <view> -->
+    <image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+    <!-- </view> -->
+    <match-media min-width="400">
+    <text>测试</text>
+    </match-media>
+    <view class="page-section">
+      <view class="page-section-title first">movable-view区域小于movable-area</view>
+      <movable-area>
+        <movable-view x="{{x}}" y="{{y}}" direction="all">text</movable-view>
+      </movable-area>
+    </view>
+    <view class="btn-area">
+      <button bindtap="tap" class="page-body-button" type="primary">点击移动到 (30px, 30px)</button>
+    </view>
   </view>
 
   <view class="section">文章列啊阿萨萨啊啊啊啊啊啊表 · {{articles.length}} 篇</view>

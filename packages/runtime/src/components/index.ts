@@ -1,5 +1,5 @@
 import type { VaporComponent } from "@vue/runtime-vapor";
-import { MinixView, MinixText, MinixIcon, MinixImage, MinixNavigator } from "./basic.ts";
+import { MinixView, MinixText, MinixIcon, MinixNavigator } from "./basic.ts";
 import {
   MinixScrollView,
   MinixSwiper,
@@ -24,6 +24,39 @@ import View from "./view/view.ts";
 import Text from "./text/text.ts";
 import { flushStyles } from "../style.ts";
 import Button from "./button/button.ts";
+import CheckboxGroup from "./checkbox-group/checkbox-group.ts";
+import RadioGroup from "./radio-group/radio-group.ts";
+import PickerViewColumn from "./picker-view-column/picker-view-column.ts";
+import MovableArea from "./containers/movable-area/movable-area.ts";
+import MovableView from "./containers/movable-view/movable-view.ts";
+import Canvas from "./canvas/canvas.ts";
+import Video from "./video/video.ts";
+import Audio from "./audio/audio.ts";
+import Map from "./map/map.ts";
+import WebView from "./web-view/web-view.ts";
+import Editor from "./editor/editor.ts";
+import Image from "./image/image.ts";
+import MatchMedia from "./containers/match-media/match-media.ts";
+
+// 文件夹式组件默认导出是工厂函数，统一调用一次拿到组件实例，既用于注册
+// 表又用于 re-export，避免重复实例化造成两份样式/状态。
+const MinixViewFolder = View();
+const MinixTextFolder = Text();
+const MinixButtonFolder = Button();
+const MinixCheckboxGroup = CheckboxGroup();
+const MinixRadioGroup = RadioGroup();
+const MinixPickerViewColumn = PickerViewColumn();
+const MinixMovableArea = MovableArea();
+const MinixMovableView = MovableView();
+const MinixCanvas = Canvas();
+const MinixVideo = Video();
+const MinixAudio = Audio();
+const MinixMap = Map();
+const MinixWebView = WebView();
+const MinixEditor = Editor();
+const MinixImage = Image();
+const MinixMatchMedia = MatchMedia();
+
 /**
  * 内置组件注册表。
  *
@@ -33,8 +66,8 @@ import Button from "./button/button.ts";
  * `<minix-view>` 等标签而无需逐个 import。
  */
 export const MINIX_COMPONENTS: Record<string, VaporComponent> = {
-  "minix-view": View(),
-  "minix-text": Text(),
+  "minix-view": MinixViewFolder,
+  "minix-text": MinixTextFolder,
   "minix-icon": MinixIcon,
   "minix-image": MinixImage,
   "minix-navigator": MinixNavigator,
@@ -47,13 +80,27 @@ export const MINIX_COMPONENTS: Record<string, VaporComponent> = {
   "minix-progress": MinixProgress,
   "minix-input": MinixInput,
   "minix-textarea": MinixTextarea,
-  "minix-button": Button(),
+  "minix-button": MinixButtonFolder,
   "minix-label": MinixLabel,
   "minix-form": MinixForm,
   "minix-checkbox": MinixCheckbox,
   "minix-radio": MinixRadio,
   "minix-slider": MinixSlider,
   "minix-switch": MinixSwitch,
+  "minix-checkbox-group": MinixCheckboxGroup,
+  "minix-radio-group": MinixRadioGroup,
+  "minix-picker-view-column": MinixPickerViewColumn,
+  "minix-movable-area": MinixMovableArea,
+  "minix-movable-view": MinixMovableView,
+  "minix-canvas": MinixCanvas,
+  "minix-video": MinixVideo,
+  "minix-audio": MinixAudio,
+  "minix-map": MinixMap,
+  "minix-web-view": MinixWebView,
+  "minix-editor": MinixEditor,
+  "minix-cover-view": MinixView,
+  "minix-cover-image": MinixImage,
+  "minix-match-media": MinixMatchMedia,
 };
 
 /** 在 createVaporApp 返回的 app 上批量注册全部 minix-* 内置组件 */
@@ -89,4 +136,17 @@ export {
   MinixRadio,
   MinixSlider,
   MinixSwitch,
+  MinixCheckboxGroup,
+  MinixRadioGroup,
+  MinixPickerViewColumn,
+  MinixMovableArea,
+  MinixMovableView,
+  MinixCanvas,
+  MinixVideo,
+  MinixAudio,
+  MinixMap,
+  MinixWebView,
+  MinixEditor,
 };
+
+export { getCanvasById } from "./canvas/canvas.ts";

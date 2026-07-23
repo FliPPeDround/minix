@@ -32,13 +32,27 @@ export const MINIX_TAGS = [
   "label",
   "form",
   "checkbox",
+  "checkbox-group",
   "radio",
+  "radio-group",
   "slider",
   "switch",
   "picker",
   "picker-view",
+  "picker-view-column",
   "rich",
   "progress",
+  "movable-area",
+  "movable-view",
+  "match-media",
+  "canvas",
+  "video",
+  "audio",
+  "map",
+  "web-view",
+  "editor",
+  "cover-view",
+  "cover-image",
 ];
 const MINIX_TAG_SET = new Set(MINIX_TAGS);
 
@@ -100,7 +114,9 @@ function transformWxml(doc: Node): Node {
     // <block> 只是逻辑包裹容器，不渲染为真实元素，映射为 Vue 的 <template>
     if (element.name === "block") element.name = "template";
     // 小程序内置组件统一加 minix- 前缀，由 runtime 注册的同名组件实现语义
-    else if (MINIX_TAG_SET.has(element.name)) element.name = "minix-" + element.name;
+    else if (MINIX_TAG_SET.has(element.name)) {
+      element.name = "minix-" + element.name;
+    }
 
     const attrs = element.attributes;
     const newAttrs: Record<string, string> = {};

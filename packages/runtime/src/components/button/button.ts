@@ -13,7 +13,7 @@ import { buttonProps } from "./props.ts";
 pushStyle("minix:components", buttonCss);
 
 export default function Button() {
-  const t = template(`<minix-button>`);
+  const t = template(`<minix-button role="button">`);
   return defineVaporComponent({
     name: "minix-button",
     props: buttonProps,

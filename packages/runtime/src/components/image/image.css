@@ -1,0 +1,6 @@
+img[role="img"] {
+  display: inline-block;
+  height: 240px;
+  overflow: hidden;
+  width: 320px;
+}

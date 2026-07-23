@@ -1,7 +1,9 @@
-import { navigateTo } from "minix";
+// import { navigateTo } from "minix";
 
 Page({
   data: {
+    x: 0,
+    y: 0,
     count: 0,
     articles: [
       { id: 1, title: "为什么是 Vue Vapor", desc: "无虚拟 DOM 的渲染模式，适合小程序场景" },
