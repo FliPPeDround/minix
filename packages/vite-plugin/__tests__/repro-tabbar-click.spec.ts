@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vite-plus/test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { compile } from "@minix/compiler";
-import * as runtime from "@minix/runtime";
+import * as runtime from "minix";
 import {
   createApp,
   createPage,
@@ -11,8 +11,13 @@ import {
   navigateTo,
   navigateBack,
   __resetMinixRuntime,
-} from "@minix/runtime";
+} from "minix";
 import { transformRpx } from "../src/index.ts";
+
+// demo 的页面 js 把 navigateTo / navigateBack 当作小程序全局 API 调用，
+// 这里挂到 globalThis 上让它们能被解析。
+(globalThis as any).navigateTo = navigateTo;
+(globalThis as any).navigateBack = navigateBack;
 
 const demoDir = join(process.cwd(), "../../playground/demo/miniprogram");
 const read = (p: string) => readFileSync(join(demoDir, p), "utf-8");

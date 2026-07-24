@@ -32,11 +32,28 @@
     "prepublishOnly": "vp run build"
   },
   "dependencies": {
-    "@minix/runtime": "workspace:*"
+    "@minix/components": "workspace:*",
+    "path-to-regexp": "^8.4.2"
   },
   "devDependencies": {
+    "@types/node": "catalog:types",
+    "@vue/reactivity": "catalog:vue",
+    "@vue/runtime-core": "catalog:vue",
+    "@vue/runtime-dom": "catalog:vue",
+    "@vue/runtime-vapor": "catalog:vue",
+    "@vue/shared": "catalog:vue",
+    "jsdom": "catalog:test",
+    "miniprogram-api-typings": "catalog:types",
     "typescript": "catalog:types",
     "vite": "catalog:vite",
     "vite-plus": "catalog:vite"
+  },
+  "inlinedDependencies": {
+    "@vue/reactivity": "3.6.0-rc.1",
+    "@vue/runtime-core": "3.6.0-rc.1",
+    "@vue/runtime-dom": "3.6.0-rc.1",
+    "@vue/runtime-vapor": "3.6.0-rc.1",
+    "@vue/shared": "3.6.0-rc.1",
+    "csstype": "3.2.3"
   }
 }

@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite-plus";
 
 export default defineConfig({
@@ -10,6 +11,10 @@ export default defineConfig({
       "@vue/runtime-vapor": "@vue/runtime-vapor/dist/runtime-vapor.esm-bundler.js",
       "@vue/reactivity": "@vue/reactivity/dist/reactivity.esm-bundler.js",
       "@vue/shared": "@vue/shared/dist/shared.esm-bundler.js",
+      // 测试里把 `minix` 解析到源码而非 dist，避免
+      // dist 里 bundled `const isFunction` 处于 TDZ 导致
+      // @minix/components/dist 加载失败。
+      minix: fileURLToPath(new URL("../minix/src/index.ts", import.meta.url)),
     },
   },
   pack: {

@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vite-plus/test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { compile } from "@minix/compiler";
-import * as runtime from "@minix/runtime";
+import * as runtime from "minix";
 import {
   createApp,
   createPage,
@@ -11,7 +11,7 @@ import {
   navigateTo,
   navigateBack,
   __resetMinixRuntime,
-} from "@minix/runtime";
+} from "minix";
 import { transformRpx } from "../src/index.ts";
 
 /**

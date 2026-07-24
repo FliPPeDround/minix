@@ -1,7 +1,7 @@
 import { reactive } from "@vue/reactivity";
 import { createVaporApp, defineVaporComponent } from "@vue/runtime-vapor";
 import { __pushLegacyPage } from "./router.ts";
-import { registerMinixComponents } from "./components/index.ts";
+import { installMinixComponents } from "./components/index.ts";
 
 type IAnyObject = WechatMiniprogram.IAnyObject;
 type PageDataOption = WechatMiniprogram.Page.DataOption;
@@ -119,7 +119,7 @@ export function createPageInstance(options: PageOptions<any, any>): CreatedPage 
       const Comp = defineVaporComponent(() => renderFn?.call(instance, ctx) ?? null);
       app = createVaporApp(Comp);
       // 注册 view/text/image/... 等内置组件，让 compiler 产出的 <minix-view> 能解析
-      registerMinixComponents(app);
+      installMinixComponents(app);
       app.mount(container);
     },
     unmount() {

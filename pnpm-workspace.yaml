@@ -24,7 +24,7 @@ catalogs:
     "@vue/runtime-vapor": 3.6.0-rc.1
     "@vue/runtime-core": 3.6.0-rc.1
     "@vue/shared": 3.6.0-rc.1
-    "@vitejs/plugin-vue": ^6.0.8
+    "@vitejs/plugin-vue": ^6.0.7
     "vue": 3.6.0-rc.1
 
   test:

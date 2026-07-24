@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["es2023", "dom"],
+    "lib": ["es2023"],
     "moduleDetection": "force",
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolveJsonModule": true,
-    "types": ["node", "vite/client", "miniprogram-api-typings"],
+    "types": ["node", "vite/client"],
     "strict": true,
     "noUnusedLocals": true,
     "declaration": true,

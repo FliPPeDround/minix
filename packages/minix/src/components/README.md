@@ -1,6 +1,6 @@
-# @minix/runtime 内置组件
+# minix 内置组件
 
-本目录是 `@minix/runtime` 对接 `@minix/compiler` 产出的 `<minix-*>` 自定义元素标签的内置组件实现。
+本目录是 `minix` 包对接 `@minix/compiler` 产出的 `<minix-*>` 自定义元素标签的内置组件实现。
 WXML 侧的内置标签（如 `view` / `text` / `image`）在编译期会被 compiler/transforms 统一加上 `minix-` 前缀，
 再由本目录的 Vue Vapor 组件在浏览器侧渲染对应的 HTML 元素并实现小程序语义（事件签名、默认样式、特殊属性）。
 

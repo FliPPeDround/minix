@@ -192,7 +192,7 @@ describe("compiler codegen integration", () => {
     let pageInstance: any;
     Page({
       data: { msg: "before" },
-      render(ctx) {
+      render(ctx: any) {
         // 混合风格：仍可用 this 拿到 instance
         pageInstance = this;
         return compiledRender(ctx);

@@ -1,7 +1,7 @@
 {
-  "name": "@minix/vite-plugin",
+  "name": "@minix/components",
   "version": "0.0.0",
-  "description": "Vite plugin that runs WeChat mini-program projects in the browser",
+  "description": "WeChat mini-program built-in components reimplemented as Vue Vapor SFCs",
   "homepage": "https://github.com/flippedround/minix.git#readme",
   "bugs": {
     "url": "https://github.com/flippedround/minix/issues"
@@ -13,41 +13,42 @@
     "url": "git+https://github.com/flippedround/minix.git"
   },
   "files": [
-    "src"
+    "dist"
   ],
   "type": "module",
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "vp pack",
-    "dev": "vp pack --watch",
-    "test": "vp test -u",
-    "test:watch": "vp test -u --watch",
+    "build": "vp build",
+    "dev": "vp build --watch",
+    "test": "vp test",
     "check": "vp check",
     "prepublishOnly": "vp run build"
   },
-  "dependencies": {
-    "@minix/compiler": "workspace:*",
-    "postcss": "^8.5.19",
-    "postcss-px-to-viewport-8-plugin": "^1.2.5"
-  },
   "devDependencies": {
-    "@types/node": "catalog:types",
+    "@microsoft/api-extractor": "^7.58.12",
+    "@types/node": "^26.1.1",
+    "@typescript/typescript6": "^6.0.2",
+    "@vitejs/plugin-vue": "catalog:vue",
+    "@vue/language-core": "^3.3.8",
+    "bumpp": "^11.1.0",
     "jsdom": "catalog:test",
     "minix": "workspace:*",
-    "typescript": "catalog:types",
+    "typescript": "^7.0.2",
     "vite": "catalog:vite",
-    "vite-plus": "catalog:vite"
+    "vite-plugin-dts": "^5.0.3",
+    "vite-plus": "catalog:vite",
+    "vue": "catalog:vue"
   },
   "peerDependencies": {
-    "vite": "*"
-  },
-  "optionalDependencies": {
-    "@minix/launcher": "workspace:*"
+    "minix": "workspace:*"
   }
 }

@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { compile } from "@minix/compiler";
-import * as runtime from "@minix/runtime";
+import * as runtime from "minix";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const demoDir = join(__dirname, "../../../playground/demo/miniprogram");
