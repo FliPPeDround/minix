@@ -1,4 +1,4 @@
-import type { VaporComponent } from "@vue/runtime-vapor";
+import type { VaporComponent } from "vue";
 import { MinixView, MinixText, MinixIcon, MinixNavigator } from "./basic.ts";
 import {
   MinixScrollView,

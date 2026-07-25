@@ -176,7 +176,7 @@ describe("vite-plugin-minix", () => {
     const wxml = readFileSync(join(mpRoot, "pages/index/index.wxml"), "utf-8");
     const result = plugin.transform(wxml, join(mpRoot, "pages/index/index.wxml"));
     expect(result.code).toContain("export function render");
-    expect(result.code).toContain("from 'minix'");
+    expect(result.code).toContain("from 'vue'");
   });
 
   test("transform .wxss：导出转好 rpx 的 CSS 字符串", () => {

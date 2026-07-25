@@ -3,21 +3,22 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { compile } from "@minix/compiler";
-import * as runtime from "minix";
+import * as vueRuntime from "vue";
+import { createPageInstance, type RenderFn } from "minix";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const demoDir = join(__dirname, "../../../playground/demo/miniprogram");
 
-function compileToRender(wxml: string): runtime.RenderFn {
+function compileToRender(wxml: string): RenderFn {
   const esm = compile(wxml);
   const js = esm
-    .replace(/^import\s*\{([^}]+)\}\s*from\s*['"]minix['"];?/m, (_: string, specifiers: string) => {
+    .replace(/^import\s*\{([^}]+)\}\s*from\s*['"]vue['"];?/m, (_: string, specifiers: string) => {
       const destructured = specifiers.replace(/(\w+)\s+as\s+(\w+)/g, "$1: $2");
-      return `const {${destructured}} = __minix;`;
+      return `const {${destructured}} = __vue;`;
     })
     .replace(/^export\s+function\s+render/m, "function render");
   // eslint-disable-next-line
-  return new Function("__minix", `${js}\nreturn render;`)(runtime) as runtime.RenderFn;
+  return new Function("__vue", `${js}\nreturn render;`)(vueRuntime) as RenderFn;
 }
 
 it("repro: 用 demo 真实 index.wxml 渲染", () => {
@@ -25,7 +26,7 @@ it("repro: 用 demo 真实 index.wxml 渲染", () => {
   console.log("=== 编译产物 ===");
   console.log(compile(wxml));
   const render = compileToRender(wxml);
-  const page = runtime.createPageInstance({
+  const page = createPageInstance({
     data: {
       count: 0,
       articles: [

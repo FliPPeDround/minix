@@ -21,11 +21,6 @@ export default defineConfig({
       processor: "vue",
     }),
   ],
-  resolve: {
-    alias: {
-      vue: "minix",
-    },
-  },
   build: {
     lib: {
       entry: "src/index.ts",
@@ -33,11 +28,10 @@ export default defineConfig({
     },
     minify: "oxc",
     rolldownOptions: {
-      external: ["vue", "minix"],
+      external: ["vue"],
       output: {
         format: "es",
         entryFileNames: "index.mjs",
-        paths: { vue: "minix" },
       },
     },
   },

@@ -1,8 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "vite-plus/test";
-import { nextTick } from "@vue/runtime-dom";
 import {
-  Page,
-  getCurrentPages,
+  nextTick,
   template,
   txt,
   toDisplayString,
@@ -11,7 +9,8 @@ import {
   renderEffect,
   delegate,
   delegateEvents,
-} from "../src/index.ts";
+} from "vue";
+import { Page, getCurrentPages } from "../src/index.ts";
 
 describe("Page API", () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { defineVaporComponent, on, renderEffect, template } from "@vue/runtime-vapor";
+import { defineVaporComponent, on, renderEffect, template } from "vue";
 import { pushStyle } from "../../style.ts";
 import mapCss from "./map.css?inline";
 import { mapProps } from "./props.ts";

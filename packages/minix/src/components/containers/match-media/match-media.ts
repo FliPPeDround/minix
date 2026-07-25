@@ -1,10 +1,4 @@
-import {
-  createSlot,
-  defineVaporComponent,
-  renderEffect,
-  setInsertionState,
-  template,
-} from "@vue/runtime-vapor";
+import { createSlot, defineVaporComponent, renderEffect, setInsertionState, template } from "vue";
 import { pushStyle } from "../../../style.ts";
 import matchMediaCss from "./match-media.css?inline";
 import { matchMediaProps } from "./props.ts";

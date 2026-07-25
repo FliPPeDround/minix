@@ -1,10 +1,4 @@
-import {
-  createSlot,
-  defineVaporComponent,
-  insert,
-  template,
-  type VaporComponent,
-} from "@vue/runtime-vapor";
+import { createSlot, defineVaporComponent, insert, template, type VaporComponent } from "vue";
 
 /**
  * 内置组件共享工具。

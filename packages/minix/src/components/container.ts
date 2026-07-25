@@ -1,4 +1,4 @@
-import { defineVaporComponent, renderEffect, on, type VaporComponent } from "@vue/runtime-vapor";
+import { defineVaporComponent, renderEffect, on, type VaporComponent } from "vue";
 import { compileTemplate, defineSlotElementComponent, insertDefaultSlot } from "./_shared.ts";
 
 /**

@@ -5,7 +5,7 @@ import {
   renderEffect,
   setInsertionState,
   template,
-} from "@vue/runtime-vapor";
+} from "vue";
 import { pushStyle } from "../../../style.ts";
 import movableViewCss from "./movable-view.css?inline";
 import { movableViewProps } from "./props.ts";

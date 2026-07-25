@@ -42,7 +42,8 @@
     "minix": "workspace:*",
     "typescript": "catalog:types",
     "vite": "catalog:vite",
-    "vite-plus": "catalog:vite"
+    "vite-plus": "catalog:vite",
+    "vue": "catalog:vue"
   },
   "peerDependencies": {
     "vite": "*"

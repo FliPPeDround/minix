@@ -1,5 +1,4 @@
-import { reactive } from "@vue/reactivity";
-import { createVaporApp, defineVaporComponent } from "@vue/runtime-vapor";
+import { reactive, createVaporApp, defineVaporComponent } from "vue";
 import { __pushLegacyPage } from "./router.ts";
 import { installMinixComponents } from "./components/index.ts";
 

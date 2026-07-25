@@ -1,4 +1,4 @@
-import { defineVaporComponent, on, renderEffect, setProp, template } from "@vue/runtime-vapor";
+import { defineVaporComponent, on, renderEffect, setProp, template } from "vue";
 import { pushStyle } from "../../style.ts";
 import videoCss from "./video.css?inline";
 import { videoProps } from "./props.ts";

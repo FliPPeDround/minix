@@ -2,15 +2,17 @@ import { describe, it, expect, beforeEach } from "vite-plus/test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { compile } from "@minix/compiler";
-import * as runtime from "minix";
+import * as vueRuntime from "vue";
 import {
   createApp,
   createPage,
   startApp,
+  getApp,
   getCurrentPages,
   navigateTo,
   navigateBack,
   __resetMinixRuntime,
+  type RenderFn,
 } from "minix";
 import { transformRpx } from "../src/index.ts";
 
@@ -26,18 +28,18 @@ import { transformRpx } from "../src/index.ts";
 const mpRoot = join(process.cwd(), "__fixtures__", "miniprogram");
 const read = (p: string) => readFileSync(join(mpRoot, p), "utf-8");
 
-/** 把 compiler 的 ESM 产物转成可调用的 render（`from 'minix'` 绑定到真 runtime） */
-function compileToRender(wxml: string): runtime.RenderFn {
+/** 把 compiler 的 ESM 产物转成可调用的 render（`from 'vue'` 绑定到真 runtime） */
+function compileToRender(wxml: string): RenderFn {
   const esm = compile(wxml);
   const js = esm
-    .replace(/^import\s*\{([^}]+)\}\s*from\s*['"]minix['"];?/m, (_: string, specifiers: string) => {
+    .replace(/^import\s*\{([^}]+)\}\s*from\s*['"]vue['"];?/m, (_: string, specifiers: string) => {
       // import 的 `x as y` 别名语法 → 解构的 `x: y`
       const destructured = specifiers.replace(/(\w+)\s+as\s+(\w+)/g, "$1: $2");
-      return `const {${destructured}} = __minix;`;
+      return `const {${destructured}} = __vue;`;
     })
     .replace(/^export\s+function\s+render/m, "function render");
   // oxlint-disable-next-line no-implied-eval -- 测试里模拟浏览器的模块加载
-  return new Function("__minix", `${js}\nreturn render;`)(runtime) as runtime.RenderFn;
+  return new Function("__vue", `${js}\nreturn render;`)(vueRuntime) as RenderFn;
 }
 
 let importSeq = 0;
@@ -56,7 +58,7 @@ describe("小程序项目端到端（fixture）", () => {
     // app.js：createApp 注入 + 执行
     const appJson = JSON.parse(read("app.json"));
     (globalThis as any).App = createApp(appJson, { wxss: transformRpx(read("app.wxss")) });
-    (globalThis as any).getApp = runtime.getApp;
+    (globalThis as any).getApp = getApp;
     await importFresh("app.js");
 
     // 页面：createPage 注入 + 编译 wxml + 执行页面 js

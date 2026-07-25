@@ -4,7 +4,7 @@ import { compile } from "./index.ts";
 test("compile", () => {
   const ast = compile("<view>{{msg}}</view>");
   expect(ast).toMatchInlineSnapshot(`
-    "import { toDisplayString as _toDisplayString, setText as _setText, renderEffect as _renderEffect, createAssetComponent as _createAssetComponent, template as _template } from 'minix';
+    "import { toDisplayString as _toDisplayString, setText as _setText, renderEffect as _renderEffect, createAssetComponent as _createAssetComponent, template as _template } from 'vue';
     const t0 = _template(" ")
 
     export function render(_ctx, $props, $emit, $attrs, $slots) {

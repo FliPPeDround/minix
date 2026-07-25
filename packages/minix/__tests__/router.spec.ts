@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from "vite-plus/test";
+import { template, txt, setText, renderEffect, toDisplayString } from "vue";
 import {
   createApp,
   createPage,
@@ -11,11 +12,6 @@ import {
   reLaunch,
   switchTab,
   __resetMinixRuntime,
-  template,
-  txt,
-  setText,
-  renderEffect,
-  toDisplayString,
 } from "../src/index.ts";
 
 /** 模拟 compiler 产物的 render：把 _ctx[key] 渲染到 .root 的文本里 */

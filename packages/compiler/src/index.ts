@@ -12,7 +12,7 @@ export function compile(wxml: string): any {
     mode: "module",
     prefixIdentifiers: true,
     bindingMetadata: {},
-    runtimeModuleName: "minix",
+    runtimeModuleName: "vue",
   });
   return code;
 }

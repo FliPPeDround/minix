@@ -1,4 +1,4 @@
-import { createSlot, defineVaporComponent, setInsertionState, template } from "@vue/runtime-vapor";
+import { createSlot, defineVaporComponent, setInsertionState, template } from "vue";
 import { pushStyle } from "../../style.ts";
 import textCss from "./text.css?inline";
 

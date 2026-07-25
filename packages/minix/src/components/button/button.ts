@@ -5,7 +5,7 @@ import {
   setInsertionState,
   setProp,
   template,
-} from "@vue/runtime-vapor";
+} from "vue";
 import { pushStyle } from "../../style.ts";
 import buttonCss from "./button.css?inline";
 import { buttonProps } from "./props.ts";

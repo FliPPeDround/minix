@@ -2,15 +2,17 @@ import { describe, it, expect, beforeEach } from "vite-plus/test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { compile } from "@minix/compiler";
-import * as runtime from "minix";
+import * as vueRuntime from "vue";
 import {
   createApp,
   createPage,
   startApp,
+  getApp,
   getCurrentPages,
   navigateTo,
   navigateBack,
   __resetMinixRuntime,
+  type RenderFn,
 } from "minix";
 import { transformRpx } from "../src/index.ts";
 
@@ -22,16 +24,16 @@ import { transformRpx } from "../src/index.ts";
 const demoDir = join(process.cwd(), "../../playground/demo/miniprogram");
 const read = (p: string) => readFileSync(join(demoDir, p), "utf-8");
 
-function compileToRender(wxml: string): runtime.RenderFn {
+function compileToRender(wxml: string): RenderFn {
   const esm = compile(wxml);
   const js = esm
-    .replace(/^import\s*\{([^}]+)\}\s*from\s*['"]minix['"];?/m, (_: string, specifiers: string) => {
+    .replace(/^import\s*\{([^}]+)\}\s*from\s*['"]vue['"];?/m, (_: string, specifiers: string) => {
       const destructured = specifiers.replace(/(\w+)\s+as\s+(\w+)/g, "$1: $2");
-      return `const {${destructured}} = __minix;`;
+      return `const {${destructured}} = __vue;`;
     })
     .replace(/^export\s+function\s+render/m, "function render");
   // eslint-disable-next-line
-  return new Function("__minix", `${js}\nreturn render;`)(runtime) as runtime.RenderFn;
+  return new Function("__vue", `${js}\nreturn render;`)(vueRuntime) as RenderFn;
 }
 
 describe("repro: tabBar 配置后点击文章标题跳转详情", () => {
@@ -43,7 +45,7 @@ describe("repro: tabBar 配置后点击文章标题跳转详情", () => {
   it("用 demo 真实文件 + tabBar 配置复现点击跳转", async () => {
     const appJson = JSON.parse(read("app.json"));
     (globalThis as any).App = createApp(appJson, { wxss: transformRpx(read("app.wxss")) });
-    (globalThis as any).getApp = runtime.getApp;
+    (globalThis as any).getApp = getApp;
 
     // 注册 index 页（用 demo 真实 wxml / wxss / json）
     (globalThis as any).Page = createPage("pages/index/index", {
@@ -105,7 +107,7 @@ describe("repro: tabBar 配置后点击文章标题跳转详情", () => {
   it("点击卡片内部子元素（模拟真实浏览器点击文本）也能跳转", async () => {
     const appJson = JSON.parse(read("app.json"));
     (globalThis as any).App = createApp(appJson, { wxss: transformRpx(read("app.wxss")) });
-    (globalThis as any).getApp = runtime.getApp;
+    (globalThis as any).getApp = getApp;
 
     (globalThis as any).Page = createPage("pages/index/index", {
       render: compileToRender(read("pages/index/index.wxml")),
@@ -151,7 +153,7 @@ describe("repro: tabBar 配置后点击文章标题跳转详情", () => {
   it("验证点击时 currentTarget.dataset.id 正确传递给 openDetail", async () => {
     const appJson = JSON.parse(read("app.json"));
     (globalThis as any).App = createApp(appJson, { wxss: transformRpx(read("app.wxss")) });
-    (globalThis as any).getApp = runtime.getApp;
+    (globalThis as any).getApp = getApp;
 
     (globalThis as any).Page = createPage("pages/index/index", {
       render: compileToRender(read("pages/index/index.wxml")),

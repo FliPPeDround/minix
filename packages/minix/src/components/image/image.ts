@@ -1,4 +1,4 @@
-import { defineVaporComponent, template } from "@vue/runtime-vapor";
+import { defineVaporComponent, template } from "vue";
 import { pushStyle } from "../../style.ts";
 import imageCss from "./image.css?inline";
 

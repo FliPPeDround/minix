@@ -1,10 +1,4 @@
-import {
-  createSlot,
-  defineVaporComponent,
-  on,
-  setInsertionState,
-  template,
-} from "@vue/runtime-vapor";
+import { createSlot, defineVaporComponent, on, setInsertionState, template } from "vue";
 import { pushStyle } from "../../style.ts";
 import radioGroupCss from "./radio-group.css?inline";
 

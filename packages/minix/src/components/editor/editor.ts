@@ -1,4 +1,4 @@
-import { defineVaporComponent, on, renderEffect, template } from "@vue/runtime-vapor";
+import { defineVaporComponent, on, renderEffect, template } from "vue";
 import { pushStyle } from "../../style.ts";
 import editorCss from "./editor.css?inline";
 import { editorProps } from "./props.ts";

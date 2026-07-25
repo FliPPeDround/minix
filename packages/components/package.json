@@ -41,7 +41,6 @@
     "@vue/language-core": "^3.3.8",
     "bumpp": "^11.1.0",
     "jsdom": "catalog:test",
-    "minix": "workspace:*",
     "typescript": "^7.0.2",
     "vite": "catalog:vite",
     "vite-plugin-dts": "^5.0.3",
@@ -49,6 +48,6 @@
     "vue": "catalog:vue"
   },
   "peerDependencies": {
-    "minix": "workspace:*"
+    "vue": "catalog:vue"
   }
 }
