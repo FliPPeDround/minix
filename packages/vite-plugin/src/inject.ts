@@ -9,17 +9,17 @@ function globalApisOf(code: string): string {
 /** 给 app.js 注入：createApp 工厂 + app.json / app.wxss，并让 `App` 指向工厂产物 */
 export function injectAppImports(code: string, options: { hasWxss: boolean }): string {
   const lines = [
-    `import { createApp as __minixCreateApp${globalApisOf(code)} } from "minix";`,
+    `import { App, setAppConfig } from "minix";`,
     `import __minixAppConfig from "./app.json";`,
   ];
-  if (options.hasWxss) lines.push(`import __minixAppWxss from "./app.wxss";`);
-  lines.push(
-    `const App = __minixCreateApp(__minixAppConfig, { wxss: ${
-      options.hasWxss ? "__minixAppWxss" : "undefined"
-    } });`,
-    "",
-    code,
-  );
+  if (options.hasWxss)
+    lines.push(
+      `import __minixAppWxss from "./app.wxss";`,
+      `import { applyStyle } from "minix";`,
+      "",
+      `applyStyle("minix:app", __minixAppWxss);`,
+    );
+  lines.push(`setAppConfig(__minixAppConfig);`, "", code);
   return lines.join("\n");
 }
 

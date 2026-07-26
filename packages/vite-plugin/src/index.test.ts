@@ -1,6 +1,7 @@
 import { describe, expect, test } from "vite-plus/test";
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import minix, {
   VIRTUAL_ENTRY_ID,
   injectAppImports,
@@ -10,8 +11,8 @@ import minix, {
   transformWxss,
 } from "./index.ts";
 
-// vitest 运行时 cwd 即本包目录（jsdom 环境下 import.meta.url 不是 file 协议，不能用）
-const fixturesDir = join(process.cwd(), "__fixtures__");
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const fixturesDir = join(__dirname, "..", "__fixtures__");
 const mpRoot = join(fixturesDir, "miniprogram");
 
 /** 构造插件实例并跑过 configResolved（加载 fixture 的 app.json） */
@@ -105,24 +106,25 @@ describe("transformWxss", () => {
 });
 
 describe("injectAppImports", () => {
-  test("注入 createApp 工厂与 app.json", () => {
+  test("解耦后注入 App / setAppConfig / applyStyle 与 app.json / app.wxss", () => {
     const out = injectAppImports("App({});", { hasWxss: true });
-    expect(out).toContain(`import { createApp as __minixCreateApp } from "minix";`);
+    expect(out).toContain(`import { App, setAppConfig } from "minix";`);
     expect(out).toContain(`import __minixAppConfig from "./app.json";`);
     expect(out).toContain(`import __minixAppWxss from "./app.wxss";`);
-    expect(out).toContain(
-      `const App = __minixCreateApp(__minixAppConfig, { wxss: __minixAppWxss });`,
-    );
+    expect(out).toContain(`import { applyStyle } from "minix";`);
+    expect(out).toContain(`applyStyle("minix:app", __minixAppWxss);`);
+    expect(out).toContain(`setAppConfig(__minixAppConfig);`);
     expect(out.endsWith("App({});")).toBe(true);
   });
 
-  test("代码里用到 getApp / getCurrentPages 才注入对应 import", () => {
-    const withGetApp = injectAppImports("App({ onShow() { getApp(); } });", { hasWxss: false });
-    expect(withGetApp).toContain("createApp as __minixCreateApp, getApp");
-    expect(withGetApp).toContain("wxss: undefined");
-
-    const plain = injectAppImports("App({});", { hasWxss: false });
-    expect(plain).not.toContain("getApp");
+  test("没有 app.wxss 时不注入 applyStyle", () => {
+    const out = injectAppImports("App({});", { hasWxss: false });
+    expect(out).toContain(`import { App, setAppConfig } from "minix";`);
+    expect(out).toContain(`import __minixAppConfig from "./app.json";`);
+    expect(out).not.toContain("applyStyle");
+    expect(out).not.toContain("app.wxss");
+    expect(out).toContain(`setAppConfig(__minixAppConfig);`);
+    expect(out.endsWith("App({});")).toBe(true);
   });
 });
 
@@ -189,12 +191,15 @@ describe("vite-plugin-minix", () => {
     expect(result.code).not.toContain("rpx");
   });
 
-  test("transform app.js：注入 createApp 与 app.wxss", () => {
+  test("transform app.js：解耦后注入 App / setAppConfig / applyStyle 与 app.wxss", () => {
     const plugin = setupPlugin();
     const code = readFileSync(join(mpRoot, "app.js"), "utf-8");
     const result = plugin.transform(code, join(mpRoot, "app.js"));
-    expect(result.code).toContain("__minixCreateApp");
-    expect(result.code).toContain(`from "./app.wxss";`);
+    expect(result.code).toContain(`import { App, setAppConfig } from "minix";`);
+    expect(result.code).toContain(`import __minixAppWxss from "./app.wxss";`);
+    expect(result.code).toContain(`import { applyStyle } from "minix";`);
+    expect(result.code).toContain(`applyStyle("minix:app", __minixAppWxss);`);
+    expect(result.code).toContain(`setAppConfig(__minixAppConfig);`);
   });
 
   test("transform 页面 js：按文件存在情况注入；getApp 按需注入", () => {

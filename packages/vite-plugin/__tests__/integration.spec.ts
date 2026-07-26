@@ -1,18 +1,19 @@
-import { describe, it, expect, beforeEach } from "vite-plus/test";
+import { describe, it, expect } from "vite-plus/test";
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { compile } from "@minix/compiler";
 import * as vueRuntime from "vue";
 import {
-  createApp,
+  App,
+  setAppConfig,
+  applyStyle,
   createPage,
   startApp,
   getApp,
   getCurrentPages,
   navigateTo,
   navigateBack,
-  __resetMinixRuntime,
-  type RenderFn,
 } from "minix";
 import { transformRpx } from "../src/index.ts";
 
@@ -20,16 +21,15 @@ import { transformRpx } from "../src/index.ts";
  * 端到端集成测试：用 fixture 小程序项目（真实 app.json / 页面四件套），
  * 手动复现插件在浏览器里做的事 ——
  *   1. compile() 编译 wxml，产物按 ESM 语义 eval（模拟浏览器模块加载）
- *   2. createApp / createPage 全局注入后执行真实 app.js / 页面 js
+ *   2. setAppConfig / applyStyle / App / createPage 全局注入后执行真实 app.js / 页面 js
  *   3. startApp() 启动，验证渲染与路由
- *
- * vitest 运行时 cwd 即本包目录（jsdom 环境下 import.meta.url 不是 file 协议，不能用）
  */
-const mpRoot = join(process.cwd(), "__fixtures__", "miniprogram");
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const mpRoot = join(__dirname, "..", "__fixtures__", "miniprogram");
 const read = (p: string) => readFileSync(join(mpRoot, p), "utf-8");
 
 /** 把 compiler 的 ESM 产物转成可调用的 render（`from 'vue'` 绑定到真 runtime） */
-function compileToRender(wxml: string): RenderFn {
+function compileToRender(wxml: string) {
   const esm = compile(wxml);
   const js = esm
     .replace(/^import\s*\{([^}]+)\}\s*from\s*['"]vue['"];?/m, (_: string, specifiers: string) => {
@@ -39,7 +39,7 @@ function compileToRender(wxml: string): RenderFn {
     })
     .replace(/^export\s+function\s+render/m, "function render");
   // oxlint-disable-next-line no-implied-eval -- 测试里模拟浏览器的模块加载
-  return new Function("__vue", `${js}\nreturn render;`)(vueRuntime) as RenderFn;
+  return new Function("__vue", `${js}\nreturn render;`)(vueRuntime);
 }
 
 let importSeq = 0;
@@ -49,15 +49,12 @@ async function importFresh(path: string): Promise<void> {
 }
 
 describe("小程序项目端到端（fixture）", () => {
-  beforeEach(() => {
-    __resetMinixRuntime();
-    document.body.innerHTML = "";
-  });
-
   it("app 启动 → 页面渲染 → navigateTo → navigateBack", async () => {
-    // app.js：createApp 注入 + 执行
+    // app.js：解耦后的三步注入 + 执行
     const appJson = JSON.parse(read("app.json"));
-    (globalThis as any).App = createApp(appJson, { wxss: transformRpx(read("app.wxss")) });
+    setAppConfig(appJson);
+    applyStyle("minix:app", transformRpx(read("app.wxss")));
+    (globalThis as any).App = App;
     (globalThis as any).getApp = getApp;
     await importFresh("app.js");
 

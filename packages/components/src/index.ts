@@ -1,10 +1,3 @@
-export { default as View } from "./components/view/index.vue";
-export { default as Test } from "./components/test/index.vue";
+const components = import.meta.glob("./components/**/index.vue", { eager: true });
 
-import View from "./components/view/index.vue";
-import Test from "./components/test/index.vue";
-
-export default {
-  view: View,
-  test: Test,
-} as const;
+export default components;

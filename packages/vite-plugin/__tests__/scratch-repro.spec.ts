@@ -4,12 +4,12 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { compile } from "@minix/compiler";
 import * as vueRuntime from "vue";
-import { createPageInstance, type RenderFn } from "minix";
+import { createPageInstance } from "minix";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const demoDir = join(__dirname, "../../../playground/demo/miniprogram");
 
-function compileToRender(wxml: string): RenderFn {
+function compileToRender(wxml: string) {
   const esm = compile(wxml);
   const js = esm
     .replace(/^import\s*\{([^}]+)\}\s*from\s*['"]vue['"];?/m, (_: string, specifiers: string) => {
@@ -18,7 +18,7 @@ function compileToRender(wxml: string): RenderFn {
     })
     .replace(/^export\s+function\s+render/m, "function render");
   // eslint-disable-next-line
-  return new Function("__vue", `${js}\nreturn render;`)(vueRuntime) as RenderFn;
+  return new Function("__vue", `${js}\nreturn render;`)(vueRuntime);
 }
 
 it("repro: 用 demo 真实 index.wxml 渲染", () => {

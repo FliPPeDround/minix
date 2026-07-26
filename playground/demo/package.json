@@ -13,8 +13,10 @@
   },
   "devDependencies": {
     "@minix/vite-plugin": "workspace:*",
+    "@vitejs/devtools": "catalog:",
     "typescript": "catalog:types",
     "vite": "catalog:vite",
+    "vite-plugin-inspect": "catalog:",
     "vite-plus": "catalog:vite"
   }
 }

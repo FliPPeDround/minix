@@ -1,5 +1,5 @@
 import { match } from "path-to-regexp";
-import { getAppConfig, __resetApp } from "./app.ts";
+import { getAppConfig } from "./config.ts";
 import { createPageInstance } from "./page.ts";
 import type { CreatedPage, RenderFn } from "./page.ts";
 import { applyStyle, removeStyle } from "./style.ts";
@@ -405,19 +405,4 @@ export function startApp(): void {
   }
   if (isTabPage(entry)) switchTab({ url: entry });
   else reLaunch({ url: entry });
-}
-
-/** 重置全部运行时状态（测试用） */
-export function __resetMinixRuntime(): void {
-  while (stack.length) {
-    const top = stack.pop()!;
-    top.page?.unmount();
-    top.container.remove();
-  }
-  routes.length = 0;
-  tabCache.clear();
-  activeTab = "";
-  shell?.root.remove();
-  shell = null;
-  __resetApp();
 }
